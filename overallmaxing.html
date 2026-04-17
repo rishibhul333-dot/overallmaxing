@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVERALLMAXING — ARISE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --white: #f0ede8;
+  --accent: #c8f500;
+  --accent2: #ff5c1a;
+  --card: #111111;
+  --border: #1e1e1e;
+  --muted: #555;
+  --text: #c8c4bc;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size: 150px;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,8,8,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-cta {
+  background: var(--accent);
+  color: var(--black);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: #d9ff1a; }
+@media(max-width:600px) { .nav-links { display: none; } }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: 'ARISE';
+  position: absolute;
+  bottom: -30px;
+  right: -20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(120px, 30vw, 280px);
+  color: rgba(200,245,0,0.03);
+  letter-spacing: 10px;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(200,245,0,0.3);
+  padding: 6px 14px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  width: fit-content;
+  animation: fadeup 0.6s ease both;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes fadeup { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 18vw, 140px);
+  line-height: 0.88;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: fadeup 0.6s 0.1s ease both;
+}
+.hero-title span {
+  display: block;
+  color: var(--accent);
+}
+.hero-sub {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin: 20px 0 32px;
+  animation: fadeup 0.6s 0.2s ease both;
+}
+.hero-desc {
+  font-size: 16px;
+  color: var(--text);
+  max-width: 400px;
+  line-height: 1.7;
+  margin-bottom: 44px;
+  animation: fadeup 0.6s 0.3s ease both;
+}
+.hero-desc b { color: var(--accent); font-weight: 500; }
+.hero-stats {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+  margin-bottom: 40px;
+  max-width: 440px;
+  animation: fadeup 0.6s 0.4s ease both;
+}
+.stat {
+  flex: 1;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+}
+.stat-l {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 28px;
+  animation: fadeup 0.6s 0.45s ease both;
+}
+.price-old {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.price-new {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--accent);
+  line-height: 1;
+}
+.price-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.offer-tag {
+  background: var(--accent2);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+}
+.hero-cta {
+  display: block;
+  max-width: 400px;
+  background: var(--accent);
+  color: var(--black);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  text-align: center;
+  padding: 18px 0;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  margin-bottom: 12px;
+  animation: fadeup 0.6s 0.5s ease both;
+  transition: background 0.2s, transform 0.1s;
+}
+.hero-cta:hover { background: #d9ff1a; transform: scale(1.01); }
+.hero-cta2 {
+  display: block;
+  max-width: 400px;
+  background: transparent;
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 14px 0;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  animation: fadeup 0.6s 0.55s ease both;
+  transition: border-color 0.2s;
+}
+.hero-cta2:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── SECTIONS COMMON ── */
+section { padding: 80px 24px; }
+.section-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.section-badge::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--accent);
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 10vw, 80px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.section-desc b { color: var(--accent); font-weight: 500; }
+
+/* ── HABITS ── */
+.habits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--border);
+  gap: 0;
+}
+@media(max-width:640px) { .habits-grid { grid-template-columns: 1fr; } }
+.habit-card {
+  padding: 24px 20px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  transition: background 0.2s;
+}
+.habit-card:hover { background: #0f0f0f; }
+.habit-num {
+  position: absolute;
+  top: 14px; right: 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+}
+.habit-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+.habit-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.habit-name::before { content: '✕'; font-size: 10px; }
+.habit-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── DIET ── */
+.diet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media(max-width:500px) { .diet-grid { grid-template-columns: 1fr; } }
+.meal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.meal-img {
+  height: 120px;
+  background: #161616;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+.meal-body { padding: 16px; }
+.meal-day {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.meal-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.meal-desc { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.meal-stats {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.ms { flex: 1; text-align: center; padding: 6px 0; border-right: 1px solid var(--border); }
+.ms:last-child { border-right: none; }
+.ms b { display: block; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px; color: var(--accent); }
+.ms span { font-size: 9px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; }
+.meal-price {
+  display: inline-block;
+  background: rgba(0,180,80,0.15);
+  border: 1px solid rgba(0,180,80,0.3);
+  color: #4cde80;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 3px 10px;
+  letter-spacing: 1px;
+}
+.locked-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 20px;
+  min-height: 260px;
+}
+.lock-icon { font-size: 36px; margin-bottom: 12px; }
+.lock-days {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #ff9f00;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.lock-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+.lock-btn {
+  background: var(--accent);
+  color: var(--black);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 11px 20px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  width: 100%;
+  display: block;
+}
+
+/* ── WORKOUT ── */
+.workout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media(max-width:500px) { .workout-grid { grid-template-columns: 1fr; } }
+.workout-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 20px;
+}
+.w-badge {
+  display: inline-block;
+  background: var(--accent2);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 3px 9px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.w-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.w-sub { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+.exercise-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.exercise-row:last-child { border-bottom: none; }
+.ex-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.ex-name { display: flex; align-items: center; color: var(--text); }
+.ex-sets { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 12px; color: var(--muted); }
+.week-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.week-tab {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.week-tab .lock-s { font-size: 10px; }
+
+/* ── GOALS ── */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media(max-width:640px) { .goals-grid { grid-template-columns: 1fr 1fr; } }
+.goal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top-width: 3px;
+  padding: 20px 16px;
+}
+.goal-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+.goal-audience {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.goal-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.goal-desc { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+.goal-lock {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── RESULTS ── */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media(max-width:500px) { .results-grid { grid-template-columns: 1fr; } }
+.review-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 18px;
+}
+.review-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.review-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 15px; }
+.review-city { font-size: 11px; color: var(--muted); }
+.stars { color: var(--accent); font-size: 12px; letter-spacing: 1px; }
+.review-badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.rbadge {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  text-transform: uppercase;
+}
+.rbadge.loss { background: rgba(255,92,26,0.15); color: #ff5c1a; border: 1px solid rgba(255,92,26,0.2); }
+.rbadge.days { background: rgba(200,245,0,0.1); color: var(--accent); border: 1px solid rgba(200,245,0,0.2); }
+.rbadge.result { background: rgba(76,222,128,0.1); color: #4cde80; border: 1px solid rgba(76,222,128,0.2); }
+.review-quote { font-size: 12px; color: var(--text); line-height: 1.7; font-style: italic; }
+.review-card.wide { grid-column: span 2; }
+@media(max-width:500px) { .review-card.wide { grid-column: span 1; } }
+
+/* ── BUY ── */
+.buy-section {
+  padding: 80px 24px;
+  border-top: 1px solid var(--border);
+}
+.buy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media(max-width:640px) { .buy-grid { grid-template-columns: 1fr; } }
+.buy-left {}
+.what-included {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.buy-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.buy-old { font-family: 'Rajdhani', sans-serif; font-size: 18px; color: var(--muted); text-decoration: line-through; }
+.buy-new { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--accent); line-height: 1; }
+.buy-offer {
+  display: inline-block;
+  background: var(--accent2);
+  color: var(--white);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.features-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.features-list li {
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.features-list li::before {
+  content: '✓';
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.buy-right {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.pay-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.pay-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+.qr-placeholder {
+  background: #fff;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 180px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #333;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.qr-inner {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  grid-template-rows: repeat(7,1fr);
+  gap: 2px;
+  width: 100%;
+  aspect-ratio: 1;
+}
+.qr-cell { background: #000; border-radius: 1px; }
+.qr-white { background: #fff; }
+.pay-amount {
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.pay-methods { text-align: center; font-size: 11px; color: var(--muted); margin-bottom: 20px; }
+.whatsapp-box {
+  background: rgba(37,211,102,0.08);
+  border: 1px solid rgba(37,211,102,0.2);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.wa-instruction { font-size: 12px; color: var(--text); line-height: 1.6; margin-bottom: 12px; text-align: center; }
+.wa-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #4cde80;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.wa-hint { font-size: 11px; color: var(--muted); text-align: center; margin-bottom: 14px; }
+.wa-btn {
+  display: block;
+  background: #25d366;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.wa-btn:hover { background: #1db954; }
+.secure-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 4px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 6px;
+}
+.footer-tag { font-size: 11px; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; margin-bottom: 24px; }
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.footer-links a {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-copy { font-size: 11px; color: #333; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">OVERALLMAXING</a>
+  <ul class="nav-links">
+    <li><a href="#habits">Habits</a></li>
+    <li><a href="#diet">Diet</a></li>
+    <li><a href="#workout">Workout</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#blueprint">Blueprint</a></li>
+  </ul>
+  <a href="#blueprint" class="nav-cta">Get Blueprint</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-badge">🏆 India's #1 Student Transformation Plan</div>
+  <h1 class="hero-title">
+    OVERALL
+    <span>MAXING</span>
+  </h1>
+  <p class="hero-sub">ARISE — Transform Your Body. Transform Your Life.</p>
+  <p class="hero-desc">
+    <b>30 din.</b> Real workouts. Real diet. Student budget mein. Hostel mein ho ya ghar pe — ye blueprint kaam karta hai.
+  </p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">2K+</span><span class="stat-l">Transformations</span></div>
+    <div class="stat"><span class="stat-n">30</span><span class="stat-l">Day Program</span></div>
+    <div class="stat"><span class="stat-n">100%</span><span class="stat-l">Diet Guided</span></div>
+  </div>
+  <div class="price-row">
+    <span class="price-old">₹500</span>
+    <span class="price-new">₹149</span>
+    <span class="price-label">only</span>
+    <span class="offer-tag">70% OFF</span>
+  </div>
+  <a href="#blueprint" class="hero-cta">GET THE BLUEPRINT — ₹149</a>
+  <a href="#workout" class="hero-cta2">View Program ↓</a>
+</section>
+
+<!-- HABITS -->
+<section id="habits">
+  <div class="section-badge">⚠ Warning</div>
+  <h2 class="section-title">QUIT THESE<br>HABITS</h2>
+  <p class="section-desc">Ye cheezein teri progress rok rahi hain. 30-day transformation ke liye inhe aaj se band karo.</p>
+  <div class="habits-grid">
+    <div class="habit-card">
+      <span class="habit-num">01</span>
+      <span class="habit-icon">🌙</span>
+      <div class="habit-name">Late Night Eating</div>
+      <p class="habit-desc">Raat 10 baje ke baad kuch bhi khana fat storage ko 40% badhata hai. Body repair mode mein hoti hai, digest mode mein nahi.</p>
+    </div>
+    <div class="habit-card">
+      <span class="habit-num">02</span>
+      <span class="habit-icon">📱</span>
+      <div class="habit-name">Phone Before Sleep</div>
+      <p class="habit-desc">Blue light cortisol badhata hai aur deep sleep ko 30% reduce karta hai. Poor sleep = poor recovery = zero results.</p>
+    </div>
+    <div class="habit-card">
+      <span class="habit-num">03</span>
+      <span class="habit-icon">🍟</span>
+      <div class="habit-name">Junk Food Cravings</div>
+      <p class="habit-desc">Processed food gut health kharab karta hai. Clean eating se energy 3x hoti hai aur focus badhta hai.</p>
+    </div>
+    <div class="habit-card">
+      <span class="habit-num">04</span>
+      <span class="habit-icon">🛋</span>
+      <div class="habit-name">Sedentary Lifestyle</div>
+      <p class="habit-desc">Din mein 8+ ghante baith ke kaam karna metabolism 20% slow deta hai. Har 45 min baad 5 min walk karo.</p>
+    </div>
+    <div class="habit-card">
+      <span class="habit-num">05</span>
+      <span class="habit-icon">🥤</span>
+      <div class="habit-name">Cold Drinks & Alcohol</div>
+      <p class="habit-desc">Ek can cold drink mein 10 teaspoon sugar hota hai. Fat burning block hoti hai aur skin kharab hoti hai.</p>
+    </div>
+    <div class="habit-card">
+      <span class="habit-num">06</span>
+      <span class="habit-icon">⏭</span>
+      <div class="habit-name">Skipping Workouts</div>
+      <p class="habit-desc">Consistency > Intensity. Ek bada workout nahi. 30 chhote consistent workouts transformation laate hain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DIET -->
+<section id="diet">
+  <div class="section-badge">🥗 Nutrition Plan</div>
+  <h2 class="section-title">30-DAY<br>DIET PLAN</h2>
+  <p class="section-desc">High protein, student budget meals. <b>Sirf 3 din ka sample</b> — baaki 27 din ka poora plan blueprint mein hai! 🔒</p>
+  <div class="diet-grid">
+    <div class="meal-card">
+      <div class="meal-img">🍳</div>
+      <div class="meal-body">
+        <div class="meal-day">📅 Day 1 — Breakfast</div>
+        <div class="meal-name">Egg Bhurji + Brown Toast</div>
+        <div class="meal-desc">3 ande ka bhurji + 2 brown bread. High protein, slow carbs — perfect student start.</div>
+        <div class="meal-stats">
+          <div class="ms"><b>320</b><span>Calories</span></div>
+          <div class="ms"><b>22G</b><span>Protein</span></div>
+          <div class="ms"><b>28G</b><span>Carbs</span></div>
+        </div>
+        <span class="meal-price">✓ ₹25/day</span>
+      </div>
+    </div>
+    <div class="meal-card">
+      <div class="meal-img">🥗</div>
+      <div class="meal-body">
+        <div class="meal-day">📅 Day 2 — Lunch</div>
+        <div class="meal-name">Chicken Rice Bowl</div>
+        <div class="meal-desc">150g grilled chicken + rice + vegetables. Ultimate high protein muscle-building meal.</div>
+        <div class="meal-stats">
+          <div class="ms"><b>490</b><span>Calories</span></div>
+          <div class="ms"><b>42G</b><span>Protein</span></div>
+          <div class="ms"><b>45G</b><span>Carbs</span></div>
+        </div>
+        <span class="meal-price">✓ ₹55/day</span>
+      </div>
+    </div>
+    <div class="meal-card">
+      <div class="meal-img">🫕</div>
+      <div class="meal-body">
+        <div class="meal-day">📅 Day 3 — Dinner</div>
+        <div class="meal-name">Paneer Sabzi + Roti</div>
+        <div class="meal-desc">100g paneer + 2 roti + sabzi. High protein vegetarian dinner for muscle repair.</div>
+        <div class="meal-stats">
+          <div class="ms"><b>380</b><span>Calories</span></div>
+          <div class="ms"><b>20G</b><span>Protein</span></div>
+          <div class="ms"><b>38G</b><span>Carbs</span></div>
+        </div>
+        <span class="meal-price">✓ ₹40/day</span>
+      </div>
+    </div>
+    <div class="locked-card">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-days">27 DAYS LOCKED</div>
+      <div class="lock-desc">Baaki 27 din ka complete high-protein diet plan — breakfast, lunch, dinner, snacks — blueprint mein unlock hoga!</div>
+      <a href="#blueprint" class="lock-btn">🔥 Blueprint Lo ₹149</a>
+    </div>
+  </div>
+</section>
+
+<!-- WORKOUT -->
+<section id="workout">
+  <div class="section-badge">💪 30-Day Program</div>
+  <h2 class="section-title">WORKOUT<br>SCHEDULE</h2>
+  <p class="section-desc">Week 1 ka sirf <b>Day 1 free mein dekho</b> — baaki 29 days ka complete plan blueprint mein locked hai! 🔒</p>
+  <div class="workout-grid">
+    <div class="workout-card">
+      <span class="w-badge">Push</span>
+      <div class="w-title">Chest &amp; Triceps</div>
+      <div class="w-sub">Day 1 — Week 1</div>
+      <div class="exercise-row"><span class="ex-name"><span class="ex-dot"></span>Push-ups</span><span class="ex-sets">4×15</span></div>
+      <div class="exercise-row"><span class="ex-name"><span class="ex-dot"></span>Incline Push-ups</span><span class="ex-sets">3×12</span></div>
+      <div class="exercise-row"><span class="ex-name"><span class="ex-dot"></span>Dips (Chair)</span><span class="ex-sets">3×10</span></div>
+      <div class="exercise-row"><span class="ex-name"><span class="ex-dot"></span>Tricep Extensions</span><span class="ex-sets">3×12</span></div>
+      <div class="exercise-row"><span class="ex-name"><span class="ex-dot"></span>Plank</span><span class="ex-sets">3×45s</span></div>
+    </div>
+    <div class="locked-card" style="min-height:280px;">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-days">29 DAYS LOCKED</div>
+      <div class="lock-desc">Day 2 se Day 30 tak ka complete structured workout — blueprint mein milega!</div>
+      <a href="#blueprint" class="lock-btn">🔥 Blueprint Lo ₹149</a>
+    </div>
+  </div>
+  <div class="week-tabs">
+    <button class="week-tab"><span class="lock-s">🔒</span> Week 2</button>
+    <button class="week-tab"><span class="lock-s">🔒</span> Week 3</button>
+    <button class="week-tab"><span class="lock-s">🔒</span> Week 4</button>
+    <a href="#blueprint" class="week-tab" style="background:var(--accent);color:var(--black);border-color:var(--accent);">→ Blueprint Mein Unlock Karo</a>
+  </div>
+</section>
+
+<!-- GOALS -->
+<section style="padding-top:0">
+  <div class="section-badge">🎯 Blueprint Ke Andar</div>
+  <h2 class="section-title">YE BLUEPRINT<br><span style="color:var(--accent)">SIRF AAPKE LIYE</span></h2>
+  <p class="section-desc">Chahe ladke ho ya ladki — har problem ka solution ek blueprint mein. <b>Thoda hint yahan, poora solution andar.</b></p>
+  <div class="goals-grid">
+    <div class="goal-card" style="border-top-color:#ff5c1a">
+      <span class="goal-icon">🔥</span>
+      <div class="goal-audience">Boys &amp; Girls</div>
+      <div class="goal-name">Weight Loss</div>
+      <div class="goal-desc">Motapa ghatana hai? Yahan sirf idea — real method blueprint mein locked hai.</div>
+      <div class="goal-lock">🔒 Full plan blueprint mein</div>
+    </div>
+    <div class="goal-card" style="border-top-color:var(--accent)">
+      <span class="goal-icon">💪</span>
+      <div class="goal-audience">Boys &amp; Girls</div>
+      <div class="goal-name">Muscle Build</div>
+      <div class="goal-desc">Patla body? Muscle nahi banta? Sirf concept yahan — step-by-step method andar hai.</div>
+      <div class="goal-lock">🔒 Full plan blueprint mein</div>
+    </div>
+    <div class="goal-card" style="border-top-color:#00bfff">
+      <span class="goal-icon">📏</span>
+      <div class="goal-audience">Boys &amp; Girls</div>
+      <div class="goal-name">Height Increase</div>
+      <div class="goal-desc">Lambai badhana chahte ho? Sirf hint yahan — science-backed real methods blueprint mein.</div>
+      <div class="goal-lock">🔒 Full plan blueprint mein</div>
+    </div>
+    <div class="goal-card" style="border-top-color:#ff69b4">
+      <span class="goal-icon">✨</span>
+      <div class="goal-audience">Boys &amp; Girls</div>
+      <div class="goal-name">Glow &amp; Looks</div>
+      <div class="goal-desc">Skin dull hai? Looks improve karne hain? Concept yahan — poora looks maxing method andar.</div>
+      <div class="goal-lock">🔒 Full plan blueprint mein</div>
+    </div>
+    <div class="goal-card" style="border-top-color:#ffd700; grid-column: span 2;">
+      <span class="goal-icon">⚡</span>
+      <div class="goal-audience">Boys &amp; Girls</div>
+      <div class="goal-name">Body Transformation</div>
+      <div class="goal-desc">30 din mein poora body badalna hai? Roadmap yahan — complete plan blueprint ke andar.</div>
+      <div class="goal-lock">🔒 Full plan blueprint mein</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="section-badge">⚡ Real Results</div>
+  <h2 class="section-title">REAL PEOPLE<br>REAL RESULTS</h2>
+  <p class="section-desc">Inhe bhi lagta tha mushkil hai — lekin 30 din mein sab badal gaya. OVERALLMAXING Blueprint se.</p>
+  <div class="results-grid">
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar">PS</div>
+        <div>
+          <div class="review-name">Priya Sharma</div>
+          <div class="review-city">Delhi, 20 saal</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-badges">
+        <span class="rbadge loss">-6KG</span>
+        <span class="rbadge days">30 Days</span>
+        <span class="rbadge result">✓ Toned</span>
+      </div>
+      <p class="review-quote">"Pehle socha diet bahut expensive hogi. OVERALLMAXING ka plan bilkul ghar ke khaane se tha — aur 30 din mein 6kg kam! Family bhi shock ho gayi! 💪"</p>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar">RS</div>
+        <div>
+          <div class="review-name">Rahul Singh</div>
+          <div class="review-city">Agra, 22 saal</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-badges">
+        <span class="rbadge loss">-8KG</span>
+        <span class="rbadge days">30 Days</span>
+        <span class="rbadge result">✓ Muscle</span>
+      </div>
+      <p class="review-quote">"Sochta tha gym ke bina kuch nahi hoga. Blueprint ne ghar pe hi itna badal diya. 8kg gaya aur muscles bhi aaye. Sirf ₹149 mein itna value! 💪"</p>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar">AM</div>
+        <div>
+          <div class="review-name">Anjali Mishra</div>
+          <div class="review-city">Kanpur, 19 saal</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-badges">
+        <span class="rbadge loss">-4KG</span>
+        <span class="rbadge days">30 Days</span>
+        <span class="rbadge result">✓ Glowing</span>
+      </div>
+      <p class="review-quote">"College mein log mujhe pehchante nahi the itne badlav ke baad! Diet mein dal chawal, oats sab tha. 30 din sach mein magic hote hain! ✨"</p>
+    </div>
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar">AY</div>
+        <div>
+          <div class="review-name">Arjun Yadav</div>
+          <div class="review-city">Noida, 21 saal</div>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-badges">
+        <span class="rbadge loss">+5KG</span>
+        <span class="rbadge days">30 Days</span>
+        <span class="rbadge result">✓ 6-Pack</span>
+      </div>
+      <p class="review-quote">"Mujhe muscle gain karni thi — OVERALLMAXING ka bulking plan ekdum sahi tha. 5kg pure muscle. 6-pack visible hone lage. Best ₹149 ever spent! ⚡"</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUY / BLUEPRINT -->
+<section class="buy-section" id="blueprint">
+  <div style="text-align:center; margin-bottom:48px;">
+    <div class="section-badge" style="justify-content:center">🚀 Get Started</div>
+    <h2 class="section-title" style="text-align:center">GET THE<br>BLUEPRINT</h2>
+    <p style="font-size:14px;color:var(--text);max-width:420px;margin:0 auto;line-height:1.7;">Ek hi jagah — poora 30-day diet + workout + habits guide. Aaj shuru karo.</p>
+  </div>
+  <div class="buy-grid">
+    <div class="buy-left">
+      <div class="what-included">What's Included</div>
+      <div class="buy-price-row">
+        <span class="buy-old">₹500</span>
+        <span class="buy-new">₹149</span>
+      </div>
+      <span class="buy-offer">🔥 Limited Time — 70% Off</span>
+      <p style="font-family:'Rajdhani',sans-serif;font-weight:600;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:20px 0 12px;">Aapko Milega</p>
+      <ul class="features-list">
+        <li>30-Day Complete Workout Plan (PDF)</li>
+        <li>Full Diet Plan with Meal Times</li>
+        <li>Habit Tracker Sheet</li>
+        <li>Morning &amp; Evening Routine Guide</li>
+        <li>Weekly Progress Tracking Sheet</li>
+        <li>Student Budget Meal Guide</li>
+        <li>OVERALLMAXING Exclusive Recipes (10+)</li>
+        <li>Lifetime Access + Free Updates</li>
+      </ul>
+    </div>
+    <div class="buy-right">
+      <div class="pay-title">SCAN &amp; PAY</div>
+      <div class="pay-sub">QR scan karo, ₹149 pay karo, aur blueprint pao!</div>
+      <div style="text-align:center;font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">📱 Scan &amp; Pay on Paytm / UPI</div>
+      <div class="qr-placeholder">
+        <div style="font-size:11px;color:#555;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:1px;text-align:center;line-height:1.5;">YOUR UPI<br>QR CODE<br>HERE</div>
+      </div>
+      <div class="pay-amount">₹149</div>
+      <div class="pay-methods">UPI / Paytm / PhonePe / GooglePay</div>
+      <div class="whatsapp-box">
+        <div class="wa-instruction">Payment successful hone ke baad apna screenshot is WhatsApp number pe share karo:</div>
+        <div class="wa-number">+91 XXXXX XXXXX</div>
+        <div class="wa-hint">⚡ Screenshot bhejo — 1 Minute mein Blueprint link aayega!</div>
+        <a href="https://wa.me/91XXXXXXXXXX?text=Maine%20OVERALLMAXING%20blueprint%20ke%20liye%20payment%20kar%20di%20hai.%20Screenshot%20attach%20hai." class="wa-btn">💬 Click Me</a>
+      </div>
+      <div class="secure-row">🔒 Secure &nbsp;|&nbsp; 100% Real Blueprint &nbsp;|&nbsp; 1 Min Delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">OVERALLMAXING</span>
+  <div class="footer-tag">ARISE — Transform in 30 Days — Or Your Money Back</div>
+  <div class="footer-links">
+    <a href="#habits">Habits</a>
+    <a href="#diet">Diet Plan</a>
+    <a href="#workout">Workout</a>
+    <a href="#results">Results</a>
+    <a href="#blueprint">Buy Blueprint</a>
+  </div>
+  <div class="footer-copy">© 2026 OVERALLMAXING. All rights reserved. Results may vary.</div>
+</footer>
+
+<script>
+const sections = ['home','habits','diet','workout','results','blueprint'];
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 80) cur = id;
+  });
+  links.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur);
+  });
+});
+</script>
+</body>
+</html>
